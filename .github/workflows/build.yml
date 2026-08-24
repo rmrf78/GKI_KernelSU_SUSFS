@@ -665,6 +665,12 @@ jobs:
           enable_config CONFIG_IPC_NS
           enable_config CONFIG_PID_NS
           enable_config CONFIG_DEVTMPFS
+          enable_config CONFIG_USER_NS
+          enable_config CONFIG_NAMESPACES
+
+          # anland 前台调度支持
+          enable_config_if_defined CONFIG_UNIX_DIAG
+          enable_config_if_defined CONFIG_PROC_CHILDREN
 
           # 可选: 网络相关配置 (Docker/NAT 模式)
           enable_config_if_defined CONFIG_NETFILTER_XT_MATCH_ADDRTYPE
