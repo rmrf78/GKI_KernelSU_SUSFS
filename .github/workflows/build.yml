@@ -671,14 +671,6 @@ jobs:
           # anland 前台调度支持
           enable_config_if_defined CONFIG_UNIX_DIAG
           enable_config_if_defined CONFIG_PROC_CHILDREN
-
-          # something about container optional
-          enable_config_if_defined CONFIG_CGROUP_PIDS
-          enable_config_if_defined CONFIG_CGROUP_DEVICE
-          enable_config_if_defined CONFIG_GROUP_RDMA
-          enable_config_if_defined CONFIG_OVERLAY_FS_USERXATTR
-          enable_config_if_defined CONFIG_OVERLAY_FS_INDEX
-          enable_config_if_defined CONFIG_SQUASHFS
  
           # 可选: 网络相关配置 (Docker/NAT 模式)
           enable_config_if_defined CONFIG_NETFILTER_XT_MATCH_ADDRTYPE
