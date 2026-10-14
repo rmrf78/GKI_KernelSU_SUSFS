@@ -672,6 +672,13 @@ jobs:
           enable_config_if_defined CONFIG_UNIX_DIAG
           enable_config_if_defined CONFIG_PROC_CHILDREN
  
+          # optional if support
+          enable_config_if_defined CONFIG_MACVLAN
+          enable_config_if_defined CONFIG_IP6_NF_NAT
+          enable_config_if_defined CONFIG_IP6_NF_TARGET_MASQUERADE
+          enable_config_if_defined CONFIG_CFS_BANDWIDTH
+          enable_config_if_defined CONFIG_CGROUP_PIDS
+
           # 可选: 网络相关配置 (Docker/NAT 模式)
           enable_config_if_defined CONFIG_NETFILTER_XT_MATCH_ADDRTYPE
           enable_config_if_defined CONFIG_NETFILTER_XT_TARGET_LOG
