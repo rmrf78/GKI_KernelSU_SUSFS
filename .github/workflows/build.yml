@@ -582,13 +582,19 @@ jobs:
           cp "$GITHUB_WORKSPACE/config/odin2_defconfig" "$DEFCONFIG"
           echo "已替换 defconfig: $(grep -c '^CONFIG_' "$DEFCONFIG") 个 CONFIG 项"
 
-      - name: 关闭 CONFIG_MODVERSIONS（绕过厂商符号 CRC 校验）
+      - name: 关闭 CONFIG_MODVERSIONS 与 CONFIG_KSU（诊断/兼容实验）
         run: |
           if grep -q '^CONFIG_MODVERSIONS=y' "$DEFCONFIG"; then
             sed -i 's/^CONFIG_MODVERSIONS=y/# CONFIG_MODVERSIONS is not set/' "$DEFCONFIG"
             echo "已关闭 MODVERSIONS"
+          fi
+          if grep -q '^CONFIG_KSU=y' "$DEFCONFIG"; then
+            sed -i 's/^CONFIG_KSU=y/# CONFIG_KSU is not set/' "$DEFCONFIG"
+            echo "已关闭 KSU"
           else
-            echo "MODVERSIONS 未启用"
+            echo "CONFIG_KSU" >> /dev/null
+            echo "# CONFIG_KSU is not set" >> "$DEFCONFIG"
+            echo "已追加关闭 KSU"
           fi
 
       - name: 备份基准 defconfig
