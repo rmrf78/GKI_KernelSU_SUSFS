@@ -1326,10 +1326,15 @@ jobs:
 
       - name: 上传 Module.symvers（CRC 对比用）
         if: always()
+        run: |
+          find "${{ env.KERNEL_ROOT }}" -name Module.symvers -exec cp {} "$GITHUB_WORKSPACE/Module.symvers" \; 2>/dev/null || true
+          ls -l "$GITHUB_WORKSPACE/Module.symvers" || echo "symvers not found"
+      - name: 上传 Module.symvers 文件
+        if: always()
         uses: actions/upload-artifact@v6
         with:
           name: Module.symvers-${{ inputs.sub_level }}
-          path: ${{ env.KERNEL_ROOT }}/common/Module.symvers
+          path: ${{ github.workspace }}/Module.symvers
           if-no-files-found: warn
           retention-days: 7
 
