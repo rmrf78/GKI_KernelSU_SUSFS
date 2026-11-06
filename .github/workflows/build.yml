@@ -1324,6 +1324,15 @@ jobs:
             done
           fi
 
+      - name: 上传 Module.symvers（CRC 对比用）
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: Module.symvers-${{ inputs.sub_level }}
+          path: ${{ env.KERNEL_ROOT }}/common/Module.symvers
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: 上传 AnyKernel3 刷入包
         if: inputs.artifact_upload_mode != '上传全部'
         uses: actions/upload-artifact@v6
