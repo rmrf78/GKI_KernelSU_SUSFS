@@ -1104,6 +1104,14 @@ jobs:
             fi
           fi
 
+      - name: 编译前最终覆盖配置（实验：KSU/MODVERSIONS 关闭）
+        run: |
+          echo "--- before ---"
+          grep -E '^(CONFIG_KSU|CONFIG_MODVERSIONS|# CONFIG_KSU|# CONFIG_MODVERSIONS)' "$DEFCONFIG" || true
+          sed -i 's/^CONFIG_MODVERSIONS=y/# CONFIG_MODVERSIONS is not set/' "$DEFCONFIG" || true
+          sed -i 's/^CONFIG_KSU=y/# CONFIG_KSU is not set/' "$DEFCONFIG" || true
+          echo "--- after ---"
+          grep -E '^(CONFIG_KSU|CONFIG_MODVERSIONS|# CONFIG_KSU|# CONFIG_MODVERSIONS)' "$DEFCONFIG" || true
       - name: 编译内核
         id: compile_kernel
         uses: nick-fields/retry@v4
